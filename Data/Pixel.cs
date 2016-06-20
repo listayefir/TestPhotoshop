@@ -15,6 +15,8 @@ namespace MyPhotoshop
             B = b;
         }
 
+        
+
         public static double Trim(double value)
         {
             if (value < 0) return 0;
@@ -50,7 +52,19 @@ namespace MyPhotoshop
             set { b = CheckChannel(value); }
         }
 
-       
+       public static Pixel operator *(Pixel pixel, double coefficient)
+        {
+            return new Pixel(Pixel.Trim(pixel.R * coefficient),
+                             Pixel.Trim(pixel.G * coefficient),
+                             Pixel.Trim(pixel.B * coefficient));
+        }
+
+        public static Pixel operator *(double coefficient, Pixel pixel)
+        {
+            return new Pixel(Pixel.Trim(pixel.R * coefficient),
+                             Pixel.Trim(pixel.G * coefficient),
+                             Pixel.Trim(pixel.B * coefficient));
+        }
 
     }
 }
