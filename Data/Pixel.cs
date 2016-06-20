@@ -5,32 +5,21 @@ using System.Text;
 
 namespace MyPhotoshop
 {
-    public class Pixel
+    public struct Pixel
     {
-        private double r;
-        private double g;
-        private double b;
-
-        public double R
-        { get { return r; }
-          set { r = CheckChannel(value); }         
+        public Pixel(double r, double g, double b)
+        {
+            this.r = this.g = this.b = 0;
+            R = r;
+            G = g;
+            B = b;
         }
 
-        public double G
+        public static double Trim(double value)
         {
-            get { return g; }
-            set { g = CheckChannel(value); }
-        }
-        
-        public double B
-        {
-            get { return b; }
-            set { b = CheckChannel(value); }
-        }
-
-        public Pixel()
-        {
-
+            if (value < 0) return 0;
+            if (value > 1) return 1;
+            return value;
         }
 
         public double CheckChannel(double value)
@@ -40,5 +29,28 @@ namespace MyPhotoshop
             else return value;
         }
        
+        private double r;
+        public double R
+        { get { return r; }
+          set { r = CheckChannel(value); }         
+        }
+
+
+        private double g;
+        public double G
+        {
+            get { return g; }
+            set { g = CheckChannel(value); }
+        }
+
+        private double b;
+        public double B
+        {
+            get { return b; }
+            set { b = CheckChannel(value); }
+        }
+
+       
+
     }
 }
