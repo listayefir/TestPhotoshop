@@ -20,6 +20,8 @@ namespace MyPhotoshop
         /// <param name="parameters"></param>
         /// <returns></returns>
 		Photo Process(Photo original, double[] parameters);
+
+        
 	}
 }
 
