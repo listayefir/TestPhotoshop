@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MyPhotoshop.Filters
+namespace MyPhotoshop
 {
-    public interface IParameters
+    public interface IParametersHandler<TParameters>
     {
         ParameterInfo[] GetDescription();
-
-        void Parse(double[] parameters);
+        TParameters CreateParameters(double[] values);
     }
 }

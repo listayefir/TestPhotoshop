@@ -1,16 +1,27 @@
-﻿using System;
+﻿using MyPhotoshop.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace MyPhotoshop.Filters
 {
-    public abstract class PixelFilter: ParametrizedFilter
+    public class PixelFilter<TParameters>:ParametrizedFilter<TParameters>
+        where TParameters:IParameters, new()
     {
 
-        public PixelFilter(IParameters parameters) : base(parameters) { }
+        string filterName;
+        Func<Pixel, TParameters, Pixel> processPixel;
 
-        public override Photo Process(Photo original, IParameters parameters)
+        public PixelFilter(string filter, Func<Pixel, TParameters, Pixel> processPixel)
+            {
+            this.filterName = filter;
+            this.processPixel = processPixel;
+            }
+
+        
+
+        public override Photo Process(Photo original, TParameters parameters)
         {
 
             var result = new Photo(original.width, original.height);
@@ -18,11 +29,16 @@ namespace MyPhotoshop.Filters
             for (int x = 0; x < result.width; x++)
                 for (int y = 0; y < result.height; y++)
                 {
-                    result[x, y] = ProcessPixel(original[x, y], parameters);
+                    result[x, y] = processPixel(original[x, y], parameters);
                 }
             return result;
         }
 
-        
+        public override string ToString()
+        {
+            return filterName;
+        }
+
+
     }
 }
